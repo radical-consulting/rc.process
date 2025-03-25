@@ -1,1 +1,8 @@
-include *.py MANIFEST.in README.md CHANGES.md LICENSE.md LICENSE.AGPL.md VERSION
+
+include *.py *.json *.md *.sh *.txt
+include MANIFEST.in README.md CHANGES.md LICENSE.md LICENSE.AGPL.md VERSION
+
+recursive-include docs     *.py *.json *.md
+recursive-include src      *.py *.json *.sh
+recursive-include examples *.py *.json
+
