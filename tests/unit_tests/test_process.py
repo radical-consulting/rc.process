@@ -155,8 +155,8 @@ class TestProcess(unittest.TestCase):
         self.proc.register_cb(Process.CB_ERR, err_cb)
 
         # Manually invoke _handle_io
-        self.proc._handle_io(Process._IO_OUT, "hello out")
-        self.proc._handle_io(Process._IO_ERR, "hello err")
+        self.proc._handle_io(Process._IO_OUT, b"hello out")
+        self.proc._handle_io(Process._IO_ERR, b"hello err")
 
         self.assertEqual(out_collected, ["hello out"])
         self.assertEqual(err_collected, ["hello err"])
@@ -182,11 +182,11 @@ class TestProcess(unittest.TestCase):
         self.proc.register_cb(Process.CB_ERR_LINE, err_line_cb)
 
         # Manually feed partial lines and complete lines
-        self.proc._handle_io(Process._IO_OUT, "line1 part")
-        self.proc._handle_io(Process._IO_OUT, "ial\nline2\nline3 no newline")
+        self.proc._handle_io(Process._IO_OUT, b"line1 part")
+        self.proc._handle_io(Process._IO_OUT, b"ial\nline2\nline3 no newline")
 
-        self.proc._handle_io(Process._IO_ERR, "err1\nerr2\n")
-        self.proc._handle_io(Process._IO_ERR, "err3 partial")
+        self.proc._handle_io(Process._IO_ERR, b"err1\nerr2\n")
+        self.proc._handle_io(Process._IO_ERR, b"err3 partial")
 
         # The line-based callbacks only fire on newlines.
         self.assertEqual(out_lines_collected, ["line1 partial", "line2"])
@@ -239,17 +239,17 @@ if __name__ == '__main__':
 
     tc = TestProcess()
     tc.setUp()
-  # tc.test_init()
-  # tc.test_register_cb()
-  # tc.test_stdin()
-  # tc.test_start()
+    tc.test_init()
+    tc.test_register_cb()
+    tc.test_stdin()
+    tc.test_start()
     tc.test_wait()
-  # tc.test_cancel()
-  # tc.test_handle_io_chunk_cb()
-  # tc.test_handle_io_line_cb()
-  # tc.test_stdout_stderr_properties()
-  # tc.test_bufsize_property()
-  # tc.test_polldelay_property()
+    tc.test_cancel()
+    tc.test_handle_io_chunk_cb()
+    tc.test_handle_io_line_cb()
+    tc.test_stdout_stderr_properties()
+    tc.test_bufsize_property()
+    tc.test_polldelay_property()
     tc.tearDown()
 
 

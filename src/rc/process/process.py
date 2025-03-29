@@ -564,7 +564,7 @@ class Process(object):
 
     # --------------------------------------------------------------------------
     #
-    def _handle_io(self, io_type: str, data: str) -> None:
+    def _handle_io(self, io_type: str, data: bytes) -> None:
         '''
         Handle incoming data from the process' stdout or stderr streams and
         call the registered callbacks.  The method will also write the data to
@@ -578,7 +578,7 @@ class Process(object):
                            - `Process._IO_OUT`: stdout
                            - `Process._IO_ERR`: stderr
 
-            data (str): The data read from the stream.
+            data (bytes): The data read from the stream.
         '''
 
         assert io_type in [self._IO_OUT, self._IO_ERR], io_type
