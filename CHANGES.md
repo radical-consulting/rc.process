@@ -6,10 +6,10 @@
     https://github.com/radical-consulting/rc.process/ \
             issues?q=is%3Aissue+is%3Aopen+
 
-0.3.0  Release                                                        2025-03-29
+0.4.0  Release                                                        2025-03-29
 --------------------------------------------------------------------------------
 
-  - encoding, error handling
+  - encoding, error handling, versioning
 
 
 0.1.0  Release                                                        2025-03-25
@@ -20,3 +20,4 @@
 
 --------------------------------------------------------------------------------
 
+  - (HEAD -> master, origin/devel, devel) snap
