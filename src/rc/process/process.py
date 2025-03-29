@@ -102,10 +102,10 @@ class Process(object):
                                `str`  : data to feed to stdin (implies `True`)
           stdout  (bool, str): `False`: discard the process' stdout stream
                                `True` : capture the process' stdout stream
-                               `str`  : filename to dump the stdout stream to
+                               `str`  : filename to copy the stdout stream to
           stderr  (bool, str): `False`: discard the process' stderr stream
                                `True` : capture the process' stderr stream
-                               `str`  : filename to dump the stderr stream to
+                               `str`  : filename to copy the stderr stream to
 
         Note that all I/O are string based, not byte based.
         '''
