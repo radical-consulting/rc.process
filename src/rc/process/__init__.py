@@ -1,21 +1,11 @@
 
 from .process import Process
 
+import os as _os
 
-# # ------------------------------------------------------------------------------
-# #
-# # get version info
-# #
-# import os            as _os
-# import radical.utils as _ru
-#
-# _mod_root = _os.path.dirname (__file__)
-#
-# version_short, version_base, version_branch, version_tag, version_detail \
-#              = _ru.get_version(_mod_root)
-# version      = version_short
-# __version__  = version_detail
-#
-#
-# # ------------------------------------------------------------------------------
+_vpath         = '%s/VERSION' % _os.path.dirname(__file__)
+_data          = open(_vpath).read().split()
+version        = _data[0].strip()
+version_detail = _data[4].strip() if len(_data) > 1 else version
+__version__    = version_detail
 
