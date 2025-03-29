@@ -156,8 +156,9 @@ class Process(object):
         try:
             self.cancel()
             self._cleanup()
-        except Exception as e:
-            raise RuntimeError('cleanup failed') from e
+        except:
+            # ignore all errors on cleanup
+            pass
 
 
     # --------------------------------------------------------------------------
@@ -535,11 +536,11 @@ class Process(object):
                         continue
 
                     if fd == self._proc.stdout.fileno():
-                        data = os.read(fd, self._bufsize).decode('utf-8')
+                        data = os.read(fd, self._bufsize)
                         self._handle_io(self._IO_OUT, data)
 
                     if fd == self._proc.stderr.fileno():
-                        data = os.read(fd, self._bufsize).decode('utf-8')
+                        data = os.read(fd, self._bufsize)
                         self._handle_io(self._IO_ERR, data)
 
             ret = self._proc.poll()
@@ -606,17 +607,20 @@ class Process(object):
             fio.write(data)
             fio.flush()
 
-        buf += data
-        for cb in cbb:
-            try: cb(self, data)
-            except Exception as e:
-                raise RuntimeError('callback failed') from e
+        sdata = data.decode('utf-8', errors='replace')
 
-        if '\n' not in data:
-            lbuf += data
+        buf += sdata
+        for cb in cbb:
+            try:
+                cb(self, sdata)
+            except Exception as e:
+                self._handle_error(e)
+
+        if '\n' not in sdata:
+            lbuf += sdata
 
         else:
-            lines    = data.split('\n')
+            lines    = sdata.split('\n')
             lines[0] = lbuf + lines[0]
 
             # If the last line is incomplete (`lines[-1]` is not empty), keep it
@@ -626,9 +630,22 @@ class Process(object):
             lbuf += lines.pop()
 
             for cb in cbl:
-                try: cb(self, lines)
+                try:
+                    cb(self, lines)
                 except Exception as e:
-                    raise RuntimeError('callback failed') from e
+                    self._handle_error(e)
+
+
+    # --------------------------------------------------------------------------
+    #
+    def _handle_error(self, e: Exception) -> None:
+        '''
+        Handle an exception raised by a callback. The method will print the
+        exception to stderr.
+        '''
+        import traceback
+        traceback.print_exc()
+        print('callback error: %s' % e, file=sys.stderr)
 
 
 # ------------------------------------------------------------------------------
