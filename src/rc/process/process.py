@@ -81,11 +81,11 @@ class Process(object):
     # --------------------------------------------------------------------------
     #
     def __init__(self, cmd     : str,
-                       env     : Optional[dict       ] = None,
-                       shell   : Optional[bool       ] = True,
-                       stdin   : Optional[[bool, str]] = True,
-                       stdout  : Optional[[bool, str]] = True,
-                       stderr  : Optional[[bool, str]] = True,
+                       env     : Optional[dict     ] = None,
+                       shell   : Optional[bool     ] = True,
+                       stdin   : Optional[bool, str] = True,
+                       stdout  : Optional[bool, str] = True,
+                       stderr  : Optional[bool, str] = True,
                        ) -> None:
 
         '''
