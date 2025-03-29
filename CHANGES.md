@@ -6,7 +6,14 @@
     https://github.com/radical-consulting/rc.process/ \
             issues?q=is%3Aissue+is%3Aopen+
 
+0.1.0  Release                                                        2025-03-29
+--------------------------------------------------------------------------------
+
+  - encoding, error handling
+
 
 0.1.0  Release                                                        2025-03-25
 --------------------------------------------------------------------------------
+
+  - initial release
 
