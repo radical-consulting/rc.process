@@ -16,6 +16,7 @@ def stderr_cb(proc, data):
 def stdout_line_cb(proc, lines):
     for line in lines:
         print('STDOUT:', line)
+        raise RuntimeError('oops')
 
 
 def stderr_line_cb(proc, lines):

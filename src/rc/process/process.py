@@ -2,6 +2,7 @@
 
 import re
 import os
+import sys
 import time
 import select
 
@@ -344,7 +345,10 @@ class Process(object):
             cbs = list(self._cbs[self.CB_STATE])
 
         for cb in cbs:
-            cb(self, state)
+            try:
+                cb(self, state)
+            except Exception as e:
+                self._handle_error(e)
 
 
     # --------------------------------------------------------------------------
