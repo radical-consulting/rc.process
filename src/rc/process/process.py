@@ -369,6 +369,27 @@ class Process(object):
             self._proc.terminate()
 
 
+    # ---------------------------------------------------------------------------
+    #
+    def kill(self) -> None:
+        return self.cancel()
+
+
+    # --------------------------------------------------------------------------
+    #
+    def signal(self, sig: int) -> None:
+        '''
+        Send a signal to the process.  The signal will be sent asynchronously,
+        and the state will not be changed.
+        '''
+
+        with self._lock:
+            if self._proc is None:
+                return
+
+            os.kill(self._proc.pid, sig)
+
+
     # --------------------------------------------------------------------------
     #
     def register_cb(self, cb_type: str, cb: callable) -> None:
