@@ -32,14 +32,10 @@ def state_cb(proc, state):
 #
 if __name__ == '__main__':
 
-    import time, sys
-    print(time.time())
     p = rcp.Process(cmd='sleep 2')
     p.start()
-    p.wait(timeout=10)
-    print(time.time())
+    p.wait()
     print('state:', p.state)
-    sys.exit(0)
 
     p = rcp.Process(cmd='/bin/sh')
     p.register_cb(rcp.Process.CB_STATE,    state_cb)
