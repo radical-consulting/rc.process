@@ -9,7 +9,7 @@ import select
 import subprocess as sp
 import threading  as mt
 
-from typing import Optional
+from typing import Optional, Union
 
 
 # ------------------------------------------------------------------------------
@@ -82,11 +82,11 @@ class Process(object):
     # --------------------------------------------------------------------------
     #
     def __init__(self, cmd     : str,
-                       env     : Optional[dict      ] = None,
-                       shell   : Optional[bool      ] = True,
-                       stdin   : Optional[bool | str] = True,
-                       stdout  : Optional[bool | str] = True,
-                       stderr  : Optional[bool | str] = True,
+                       env     : Optional[dict            ] = None,
+                       shell   : Optional[bool            ] = True,
+                       stdin   : Optional[Union[bool, str]] = True,
+                       stdout  : Optional[Union[bool, str]] = True,
+                       stderr  : Optional[Union[bool, str]] = True,
                        ) -> None:
 
         '''
