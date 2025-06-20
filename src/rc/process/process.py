@@ -181,6 +181,19 @@ class Process(object):
     # --------------------------------------------------------------------------
     #
     @property
+    def pid(self) -> Optional[int]:
+        '''
+        Return the underlying process' PID. The PID is only valid after the
+        process has been started - `None` is returned if the process has not
+        been started.
+        '''
+        try:
+            return self._proc.pid
+        except:
+            pass
+
+
+    @property
     def bufsize(self) -> int:
         '''
         Return the buffer size used for reading from the process' stdout and
